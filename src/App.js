@@ -1,4 +1,4 @@
-import Tetris from "./Tetris/Tetris";
+import Tetris from "./components/Tetris/Tetris";
 import classes from "./App.module.css";
 
 
