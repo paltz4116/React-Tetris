@@ -5,54 +5,8 @@ export const createEmptyBoard = () => {
 
   // Fill the board with empty cells
   for (let row = 0; row < rows; row++) {
-    emptyBoard.push(Array(columns).fill(0));
+    emptyBoard.push(Array(columns).fill([0, "clear"]));
   }
 
   return emptyBoard;
-};
-
-export const generateRandomBlock = () => {
-  const blocks = [
-    [
-      [1, 1, 1, 1],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ],
-    [
-      [1, 1],
-      [1, 1],
-    ],
-    [
-      [1, 0, 0],
-      [1, 1, 1],
-      [0, 0, 0],
-    ],
-    [
-      [0, 0, 1],
-      [1, 1, 1],
-      [0, 0, 0],
-    ],
-    [
-      [0, 1, 1],
-      [1, 1, 0],
-      [0, 0, 0],
-    ],
-    [
-      [0, 1, 0],
-      [1, 1, 1],
-      [0, 0, 0],
-    ],
-    [
-      [1, 1, 0],
-      [0, 1, 1],
-      [0, 0, 0],
-    ],
-  ];
-
-  // Randomly choose a block from the array
-  const randomIndex = Math.floor(Math.random() * blocks.length);
-  const randomBlock = blocks[randomIndex];
-
-  return randomBlock;
 };
