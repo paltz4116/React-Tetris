@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
 import StartButton from "../UI/StartButton";
+
 import classes from "./Board.module.css";
 
+import { INIT_STATE } from "../../store/constants";
+
 const Board = (props) => {
+  const [initState, setInitState] = useState("stop");
+
+  const handleInitState = () => {
+    setInitState("playing");
+    INIT_STATE.state = "playing";
+  }
+
   return (
     <div className={classes.board}>
-      {!props.gameOver ? <StartButton onClick={props.handleStart} /> : ""}
+      {initState === "stop" ? <StartButton onClick={handleInitState} /> : ""}
       {props.board.map((row, rowIndex) => (
         <div key={rowIndex} className={classes.row}>
           {row.map((cell, colIndex) => (
