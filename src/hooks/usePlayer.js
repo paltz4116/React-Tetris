@@ -5,7 +5,7 @@ import { generateRandomBlock } from "../tetrominos";
 export const usePlayer = () => {
   const [player, setPlayer] = useState({
     pos: { x: 0, y: 0 },
-    tetromino: generateRandomBlock(),
+    tetromino: [[0], [0]],
     collided: false,
   });
 
@@ -13,7 +13,7 @@ export const usePlayer = () => {
     setPlayer((prev) => {
       return {
         ...prev,
-        pos: { x: (prev.pos.x += x), y: (prev.pos.y += y) },
+        pos: { x: (prev.pos.x + x), y: (prev.pos.y + y) },
         collided,
       };
     });
@@ -21,11 +21,11 @@ export const usePlayer = () => {
 
   const resetPlayer = useCallback(() => {
     setPlayer({
-      pos: { x: 5, y: 0 },
+      pos: { x: 4, y: 0 },
       tetromino: generateRandomBlock(),
       collided: false,
     });
-  });
+  }, []);
 
   return [player, updatePlayerPos, resetPlayer];
 };

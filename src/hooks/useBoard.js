@@ -23,11 +23,21 @@ export const useBoard = (player, resetPlayer) => {
         });
       });
 
+      if (player.collided) {
+        resetPlayer();
+      }
+
       return newBoard;
     };
 
     setBoard((prev) => updateBoard(prev));
-  }, [player]);
+  }, [
+    player.collided,
+    player.pos.x,
+    player.pos.y,
+    player.tetromino,
+    resetPlayer,
+  ]);
 
   return [board, setBoard];
 };

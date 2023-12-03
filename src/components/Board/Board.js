@@ -12,6 +12,7 @@ const Board = (props) => {
   const handleInitState = () => {
     setInitState("playing");
     INIT_STATE.state = "playing";
+    props.startGame();
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { createEmptyBoard } from "../../helpers";
+import { createEmptyBoard, checkCollision } from "../../helpers";
 
 import { usePlayer } from "../../hooks/usePlayer";
 import { useBoard } from "../../hooks/useBoard";
@@ -14,29 +14,42 @@ import { INIT_STATE } from "../../store/constants";
 
 const Tetris = (props) => {
   const [gameOver, setGameOver] = useState(false);
-  //const [dropTime, setDropTime] = useState(null);
-
+  const [dropTime, setDropTime] = useState(null);
   const [player, updatePlayerPos, resetPlayer] = usePlayer();
-  const [board, setBoard] = useBoard(player);
+  const [board, setBoard] = useBoard(player, resetPlayer);
+
+  console.log("re-render");
 
   const movePlayer = (dir) => {
-    updatePlayerPos({ x: dir, y: 0 });
+    if (!checkCollision(player, board, { x: dir, y: 0 })) {
+      updatePlayerPos({ x: dir, y: 0 });
+    }
   };
 
   const startGame = () => {
     setBoard(createEmptyBoard());
     resetPlayer();
+    //window.onkeydown = move;
+    setGameOver(false);
   };
 
   const drop = () => {
-    updatePlayerPos({ x: 0, y: 1, collided: false });
+    if (!checkCollision(player, board, { x: 0, y: 1 })) {
+      updatePlayerPos({ x: 0, y: 1, collided: false });
+    } else {
+      if (player.pos.y < 1) {
+        setGameOver(true);
+        setDropTime(null);
+      }
+      updatePlayerPos({ x: 0, y: 0, collided: true });
+    }
   };
 
   const dropPlayer = () => {
     drop();
   };
 
-  const move = (code) => {
+  const move = ({ code }) => {
     if (!gameOver && INIT_STATE.state === "playing") {
       //left
       if (code === "ArrowLeft") {
@@ -58,9 +71,9 @@ const Tetris = (props) => {
       className={classes.Tetris}
       role="button"
       tabIndex="0"
-      onKeyDown={(event) => move(event.code)}
+      onKeyDown={(event) => move(event)}
     >
-      <Board board={board} />
+      <Board board={board} startGame={startGame} />
       <Section nextBlock={player.tetromino} />
     </div>
   );
