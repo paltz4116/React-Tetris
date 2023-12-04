@@ -16,7 +16,7 @@ import { INIT_STATE } from "../../store/constants";
 const Tetris = (props) => {
   const [gameOver, setGameOver] = useState(false);
   const [dropTime, setDropTime] = useState(null);
-  const [player, updatePlayerPos, resetPlayer] = usePlayer();
+  const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
   const [board, setBoard] = useBoard(player, resetPlayer);
   const { ref, isFocused, setIsFocused } = useFocus(false);
 
@@ -64,6 +64,8 @@ const Tetris = (props) => {
       //drop
       else if (code === "ArrowDown") {
         dropPlayer();
+      } else if (code === "ArrowUp") {
+        playerRotate(board, 1);
       }
     }
   };
