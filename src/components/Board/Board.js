@@ -13,7 +13,8 @@ const Board = (props) => {
     setInitState("playing");
     INIT_STATE.state = "playing";
     props.startGame();
-  }
+    props.setIsFocused(true);
+  };
 
   return (
     <div className={classes.board}>

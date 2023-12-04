@@ -4,6 +4,7 @@ import { createEmptyBoard, checkCollision } from "../../helpers";
 
 import { usePlayer } from "../../hooks/usePlayer";
 import { useBoard } from "../../hooks/useBoard";
+import { useFocus } from "../../hooks/useFocus";
 
 import Board from "../Board/Board";
 import Section from "../Section/Section";
@@ -17,6 +18,7 @@ const Tetris = (props) => {
   const [dropTime, setDropTime] = useState(null);
   const [player, updatePlayerPos, resetPlayer] = usePlayer();
   const [board, setBoard] = useBoard(player, resetPlayer);
+  const { ref, isFocused, setIsFocused } = useFocus(false);
 
   console.log("re-render");
 
@@ -71,9 +73,10 @@ const Tetris = (props) => {
       className={classes.Tetris}
       role="button"
       tabIndex="0"
+      ref={ref}
       onKeyDown={(event) => move(event)}
     >
-      <Board board={board} startGame={startGame} />
+      <Board board={board} startGame={startGame} setIsFocused={setIsFocused} />
       <Section nextBlock={player.tetromino} />
     </div>
   );
