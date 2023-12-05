@@ -41,5 +41,10 @@ export const generateRandomBlock = () => {
   const randomIndex = Math.floor(Math.random() * TETROMINO_LIST.length);
   const randomBlock = TETROMINO_LIST[randomIndex];
 
-  return randomBlock;
+  const nextBlock = {
+    index: randomIndex,
+    tetromino: randomBlock,
+  };
+
+  return nextBlock;
 };

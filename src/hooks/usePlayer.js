@@ -7,6 +7,7 @@ export const usePlayer = () => {
   const [player, setPlayer] = useState({
     pos: { x: 0, y: 0 },
     tetromino: [[0], [0]],
+    tetrominoIndex: null,
     collided: false,
   });
 
@@ -31,7 +32,7 @@ export const usePlayer = () => {
       playerCopy.pos.x += offset;
       offset = -(offset + (offset > 0 ? 1 : -1));
 
-      if(offset > playerCopy.tetromino[0].length) {
+      if (offset > playerCopy.tetromino[0].length) {
         rotate(playerCopy.tetromino, -dir);
         playerCopy.pos.x = pos;
         return;
@@ -52,9 +53,12 @@ export const usePlayer = () => {
   };
 
   const resetPlayer = useCallback(() => {
+    const nextBlock = generateRandomBlock();
+
     setPlayer({
       pos: { x: 4, y: 0 },
-      tetromino: generateRandomBlock(),
+      tetromino: nextBlock.tetromino,
+      tetrominoIndex: nextBlock.index,
       collided: false,
     });
   }, []);

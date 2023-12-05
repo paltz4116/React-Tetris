@@ -79,7 +79,7 @@ const Tetris = (props) => {
       onKeyDown={(event) => move(event)}
     >
       <Board board={board} startGame={startGame} setIsFocused={setIsFocused} />
-      <Section nextBlock={player.tetromino} />
+      <Section nextBlockIndex={player.tetrominoIndex} />
     </div>
   );
 };

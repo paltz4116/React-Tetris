@@ -1,5 +1,7 @@
 import React from "react";
 
+import { TETRIS_LIST } from "../../store/constants";
+
 import classes from "../Board/Board.module.css";
 
 const Section = (props) => {
@@ -9,11 +11,17 @@ const Section = (props) => {
     nextBlock.push(Array(4).fill(0));
   }
 
-  nextBlock = nextBlock.map((row, rowIndex) => {
-    return row.map((column, colIndex) => {
-      return props.nextBlock[rowIndex][colIndex] ? 1 : 0;
+  if (props.nextBlockIndex !== null) {
+    const sampleTetris = JSON.parse(
+      JSON.stringify(TETRIS_LIST[props.nextBlockIndex])
+    );
+
+    nextBlock = nextBlock.map((row, rowIndex) => {
+      return row.map((column, colIndex) => {
+        return sampleTetris[rowIndex][colIndex] ? 1 : 0;
+      });
     });
-  });
+  }
 
   return (
     <section>
