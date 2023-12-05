@@ -3,8 +3,24 @@ import { createEmptyBoard } from "../helpers";
 
 export const useBoard = (player, resetPlayer) => {
   const [board, setBoard] = useState(createEmptyBoard());
+  const [rowsClear, setRowsClear] = useState(0);
 
   useEffect(() => {
+    setRowsClear(0);
+
+    const sweepRows = (newBoard) =>
+      newBoard.reduce((acc, row) => {
+        if (row.findIndex((cell) => cell[0] === 0) === -1) {
+          setRowsClear((prev) => prev + 1);
+          acc.unshift(new Array(newBoard[0].length).fill([0, "clear"]));
+
+          return acc;
+        }
+        acc.push(row);
+
+        return acc;
+      }, []);
+
     const updateBoard = (prevBoard) => {
       //flush the board
       const newBoard = prevBoard.map((row) =>
@@ -25,6 +41,8 @@ export const useBoard = (player, resetPlayer) => {
 
       if (player.collided) {
         resetPlayer();
+
+        return sweepRows(newBoard);
       }
 
       return newBoard;
@@ -39,5 +57,5 @@ export const useBoard = (player, resetPlayer) => {
     resetPlayer,
   ]);
 
-  return [board, setBoard];
+  return [board, setBoard, rowsClear];
 };
