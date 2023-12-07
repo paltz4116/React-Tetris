@@ -2,12 +2,13 @@ import { useState, useCallback } from "react";
 
 import { generateRandomBlock } from "../tetrominos";
 import { checkCollision } from "../helpers";
+import { TETRIS_LIST } from "../store/constants";
 
 export const usePlayer = () => {
   const [player, setPlayer] = useState({
     pos: { x: 0, y: 0 },
     tetromino: [[0], [0]],
-    tetrominoIndex: null,
+    nextTetrominoIndex: generateRandomBlock().index,
     collided: false,
   });
 
@@ -53,13 +54,13 @@ export const usePlayer = () => {
   };
 
   const resetPlayer = useCallback(() => {
-    const nextBlock = generateRandomBlock();
-
-    setPlayer({
-      pos: { x: 4, y: 0 },
-      tetromino: nextBlock.tetromino,
-      tetrominoIndex: nextBlock.index,
-      collided: false,
+    setPlayer((prev) => {
+      return {
+        pos: { x: 4, y: 0 },
+        tetromino: TETRIS_LIST[prev.nextTetrominoIndex],
+        nextTetrominoIndex: generateRandomBlock().index,
+        collided: false,
+      };
     });
   }, []);
 

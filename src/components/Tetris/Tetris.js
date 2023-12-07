@@ -95,7 +95,7 @@ const Tetris = (props) => {
       onKeyUp={keyUp}
     >
       <Board board={board} startGame={startGame} setIsFocused={setIsFocused} />
-      <Section nextBlockIndex={player.tetrominoIndex} />
+      <Section nextBlockIndex={player.nextTetrominoIndex} />
     </div>
   );
 };
