@@ -5,6 +5,7 @@ import { createEmptyBoard, checkCollision } from "../../helpers";
 import { usePlayer } from "../../hooks/usePlayer";
 import { useBoard } from "../../hooks/useBoard";
 import { useFocus } from "../../hooks/useFocus";
+import { useInterval } from "../../hooks/useInterval";
 
 import Board from "../Board/Board";
 import Section from "../Section/Section";
@@ -30,6 +31,7 @@ const Tetris = (props) => {
 
   const startGame = () => {
     setBoard(createEmptyBoard());
+    setDropTime(1000);
     resetPlayer();
     //window.onkeydown = move;
     setGameOver(false);
@@ -47,7 +49,16 @@ const Tetris = (props) => {
     }
   };
 
+  const keyUp = ({ code }) => {
+    if (!gameOver) {
+      if (code === "ArrowDown") {
+        setDropTime(1000);
+      }
+    }
+  };
+
   const dropPlayer = () => {
+    setDropTime(null);
     drop();
   };
 
@@ -70,6 +81,10 @@ const Tetris = (props) => {
     }
   };
 
+  useInterval(() => {
+    drop();
+  }, dropTime);
+
   return (
     <div
       className={classes.Tetris}
@@ -77,6 +92,7 @@ const Tetris = (props) => {
       tabIndex="0"
       ref={ref}
       onKeyDown={(event) => move(event)}
+      onKeyUp={keyUp}
     >
       <Board board={board} startGame={startGame} setIsFocused={setIsFocused} />
       <Section nextBlockIndex={player.tetrominoIndex} />

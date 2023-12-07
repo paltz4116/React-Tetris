@@ -36,9 +36,7 @@ export const TETRIS_LIST = [
   ],
 ];
 
-export const INIT_POSITION = { x: 5, y: 0 };
-
 export const INIT_STATE = {
   state: "stop",
-  position: INIT_POSITION,
+  position: { x: 4, y: 0 },
 };
