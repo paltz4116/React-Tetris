@@ -6,6 +6,7 @@ import { usePlayer } from "../../hooks/usePlayer";
 import { useBoard } from "../../hooks/useBoard";
 import { useFocus } from "../../hooks/useFocus";
 import { useInterval } from "../../hooks/useInterval";
+import { useGameStatus } from "../../hooks/useGameStatus";
 
 import Board from "../Board/Board";
 import Section from "../Section/Section";
@@ -18,8 +19,10 @@ const Tetris = (props) => {
   const [gameOver, setGameOver] = useState(false);
   const [dropTime, setDropTime] = useState(null);
   const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
-  const [board, setBoard] = useBoard(player, resetPlayer);
+  const [board, setBoard, rowsClear] = useBoard(player, resetPlayer);
   const { ref, isFocused, setIsFocused } = useFocus(false);
+  const [score, setScore, rows, setRows, level, setLevel] =
+    useGameStatus(rowsClear);
 
   console.log("re-render");
 
@@ -35,9 +38,17 @@ const Tetris = (props) => {
     resetPlayer();
     //window.onkeydown = move;
     setGameOver(false);
+    setScore(0);
+    setRows(0);
+    setLevel(0);
   };
 
   const drop = () => {
+    if (rows > (level + 1) * 10) {
+      setLevel((prev) => prev + 1);
+      setDropTime(1000 / (level + 1) + 200);
+    }
+
     if (!checkCollision(player, board, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
@@ -52,7 +63,7 @@ const Tetris = (props) => {
   const keyUp = ({ code }) => {
     if (!gameOver) {
       if (code === "ArrowDown") {
-        setDropTime(1000);
+        setDropTime(1000 / (level + 1) + 200);
       }
     }
   };
