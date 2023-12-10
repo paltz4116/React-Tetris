@@ -3,6 +3,8 @@ import React from "react";
 import { TETRIS_LIST } from "../../store/constants";
 
 import classes from "../Board/Board.module.css";
+import sectionClass from "./Section.module.css";
+import StateSection from "./StateSection";
 
 const Section = (props) => {
   let nextBlock = [];
@@ -26,6 +28,7 @@ const Section = (props) => {
   return (
     <section>
       <div className={classes.board}>
+        <p>Next Block</p>
         {nextBlock.map((row, rowIndex) => (
           <div key={rowIndex} className={classes.row}>
             {row.map((cell, colIndex) => (
@@ -37,6 +40,7 @@ const Section = (props) => {
           </div>
         ))}
       </div>
+      <StateSection score={props.score} level={props.level}/>
     </section>
   );
 };
