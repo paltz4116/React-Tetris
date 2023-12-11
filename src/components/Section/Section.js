@@ -26,7 +26,7 @@ const Section = (props) => {
   }
 
   return (
-    <section>
+    <section className={sectionClass.stateSection}>
       <div className={classes.board}>
         <p>Next Block</p>
         {nextBlock.map((row, rowIndex) => (

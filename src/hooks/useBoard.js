@@ -8,8 +8,9 @@ export const useBoard = (player, resetPlayer) => {
   useEffect(() => {
     setRowsClear(0);
 
-    const sweepRows = (newBoard) =>
-      newBoard.reduce((acc, row) => {
+    const sweepRows = (newBoard) => {
+      setRowsClear(0);
+      return newBoard.reduce((acc, row) => {
         if (row.findIndex((cell) => cell[0] === 0) === -1) {
           setRowsClear((prev) => prev + 1);
           acc.unshift(new Array(newBoard[0].length).fill([0, "clear"]));
@@ -20,6 +21,7 @@ export const useBoard = (player, resetPlayer) => {
 
         return acc;
       }, []);
+    };
 
     const updateBoard = (prevBoard) => {
       //flush the board

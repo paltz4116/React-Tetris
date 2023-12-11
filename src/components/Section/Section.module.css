@@ -1,6 +1,9 @@
-p {
-  margin: 0;
+.stateSection {
   font-family: "DotGothic16", sans-serif;
   font-weight: 400;
   font-size: 2rem;
+}
+
+.stateSection p {
+  margin: 0;
 }
