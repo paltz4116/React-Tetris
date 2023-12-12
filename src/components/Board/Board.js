@@ -18,7 +18,16 @@ const Board = (props) => {
 
   return (
     <div className={classes.board}>
-      {initState === "stop" ? <StartButton onClick={handleInitState} /> : ""}
+      {initState === "stop" ? (
+        <StartButton onClick={handleInitState} text="Click to start" />
+      ) : (
+        ""
+      )}
+      {props.gameOver === true ? (
+        <StartButton onClick={handleInitState} text="Game Over" />
+      ) : (
+        ""
+      )}
       {props.board.map((row, rowIndex) => (
         <div key={rowIndex} className={classes.row}>
           {row.map((cell, colIndex) => (

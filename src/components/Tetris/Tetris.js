@@ -105,7 +105,12 @@ const Tetris = (props) => {
       onKeyDown={(event) => move(event)}
       onKeyUp={keyUp}
     >
-      <Board board={board} startGame={startGame} setIsFocused={setIsFocused} />
+      <Board
+        board={board}
+        startGame={startGame}
+        setIsFocused={setIsFocused}
+        gameOver={gameOver}
+      />
       <Section
         nextBlockIndex={player.nextTetrominoIndex}
         score={score}
