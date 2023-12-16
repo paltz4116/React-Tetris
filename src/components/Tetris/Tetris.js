@@ -52,9 +52,10 @@ const Tetris = (props) => {
     if (!checkCollision(player, board, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
-      if (player.pos.y < 1) {
+      if (player.pos.y < 1) { //game over
         setGameOver(true);
         setDropTime(null);
+        window.localStorage.setItem("highScore", score);
       }
       updatePlayerPos({ x: 0, y: 0, collided: true });
     }
