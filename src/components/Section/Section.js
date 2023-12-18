@@ -5,6 +5,7 @@ import { TETRIS_LIST } from "../../store/constants";
 import classes from "../Board/Board.module.css";
 import sectionClass from "./Section.module.css";
 import StateSection from "./StateSection";
+import DirectionalButton from "../UI/DirectionalButton";
 
 const Section = (props) => {
   let nextBlock = [];
@@ -41,6 +42,7 @@ const Section = (props) => {
         ))}
       </div>
       <StateSection score={props.score} level={props.level}/>
+      <DirectionalButton move={props.move} keyUp={props.keyUp} />
     </section>
   );
 };

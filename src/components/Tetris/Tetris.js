@@ -54,6 +54,7 @@ const Tetris = (props) => {
     } else {
       if (player.pos.y < 1) { //game over
         setGameOver(true);
+        INIT_STATE.state = "stop";
         setDropTime(null);
         window.localStorage.setItem("highScore", score);
       }
@@ -62,7 +63,7 @@ const Tetris = (props) => {
   };
 
   const keyUp = ({ code }) => {
-    if (!gameOver) {
+    if (INIT_STATE.state === "playing") {
       if (code === "ArrowDown") {
         setDropTime(1000 / (level + 1) + 200);
       }
@@ -87,7 +88,9 @@ const Tetris = (props) => {
       //drop
       else if (code === "ArrowDown") {
         dropPlayer();
-      } else if (code === "ArrowUp") {
+      } 
+      //rotate
+      else if (code === "ArrowUp") {
         playerRotate(board, 1);
       }
     }
@@ -116,6 +119,8 @@ const Tetris = (props) => {
         nextBlockIndex={player.nextTetrominoIndex}
         score={score}
         level={level}
+        move={move}
+        keyUp={keyUp}
       />
     </div>
   );

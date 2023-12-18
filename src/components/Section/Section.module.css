@@ -1,4 +1,8 @@
 .stateSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 5rem;
   font-family: "DotGothic16", sans-serif;
   font-weight: 400;
   font-size: 2rem;
