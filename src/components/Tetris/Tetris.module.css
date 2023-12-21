@@ -1,4 +1,8 @@
 .Tetris {
   display: flex;
   gap: 20px;
+  padding: 5rem 5rem 5rem 5rem;
+  background: #efcc19;
+  border: 7px solid #ceb018;
+  border-radius: 30px;
 }
